@@ -33,40 +33,55 @@ const User = new mongoose.model("User",{
                 throw new Error("Age cannot be Negative Number!")
             }
         }
+    },
+    password:{
+        type: String,
+        required: true,
+        trim: true,
+        minlength: 6,
+        lowercase:true,
+        validate(value){
+            if(value.includes("password")){
+                throw new Error("You cannot give password as a password")
+            }
+        }
     }
 })
 
 const task = new mongoose.model("task",{
     description:{
-        type: String
+        type: String,
+        trim: true,
+        required: true
     },
     completed:{
-        type: Boolean
+        type: Boolean,
+        default: false
     }
 })
 
 const me = new User({
     name: "     Ashish Pokhrel",
-    email: "ram@gmail.com   "
+    email: "ram@gmail.com   ",
+    password: " Ram123456ram"
 })
 
 const newTask = new task ({
-    description: "hello i am healthy",
-    completed: true
+    description: "hello i am healthy"
 })
 
-me.save().then( (me)=>{
-    console.log(me);
+// me.save().then( (me)=>{
+//     console.log(me);
     
-}).catch((err) => {
-    console.log(err);
-    
-})
-
-// newTask.save().then( (newTask)=>{
-//     console.log(newTask)
-    
-// }).catch( (err)=>{
+// }).catch((err) => {
 //     console.log(err);
     
 // })
+
+newTask.save().then( (newTask)=>{
+    console.log(newTask)
+    
+}).catch( (err)=>{
+    console.log(err);
+    
+})
