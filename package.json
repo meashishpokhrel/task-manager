@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/meashishpokhrel/task-manager#readme",
   "dependencies": {
-    "mongoose": "^5.9.20"
+    "mongoose": "^5.9.20",
+    "validator": "^13.1.1"
   }
 }
