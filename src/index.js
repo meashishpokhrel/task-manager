@@ -10,22 +10,45 @@ app.use (express.json())
 app.post("/users", (req,res) => {
     const user = new User(req.body)
     
-    user.save().then(() => {
+    user.save().then((user) => {
         res.status(201).send(user)
     }).catch((err) => {
         res.status(400).send(err)
     })
 })
 
+app.get("/users", (req,res) => {
+    User.find({}).then((users) =>{
+        res.send(users)
+    }).catch((err)=>{
+        res.status(500).send()
+    })
+})
+
+app.get("/users/:id", (req,res) => {
+    const _id=req.params.id
+    User.findById({_id}).then((users) =>{
+        if(!users){
+            res.status(404).send()
+        }
+        res.send(users)
+    }).catch((err) => {
+        res.status(500).send()
+    })
+})
+
+
 app.post("/tasks", (req,res) =>{
     const Task = new task (req.body)
 
-    Task.save().then (() =>{
+    Task.save().then ((Task) =>{
         res.status(201).send(Task)
     }).catch((err) =>{
         res.status(400).send(err)
     })
 })
+
+
 
 app.listen(port,  () => {
     console.log("Server Started on " + port)
