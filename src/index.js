@@ -48,6 +48,27 @@ app.post("/tasks", (req,res) =>{
     })
 })
 
+app.get("/tasks", (req,res) => {
+    task.find({}).then((tasks) =>{
+        res.send(tasks)
+    }).catch((err)=>{
+        res.status(500).send()
+    })
+})
+
+
+app.get("/tasks/:id", (req,res) => {
+    const _id = req.params.id
+    task.findById(_id).then((tasks)=>{
+        if (!tasks){
+            res.status(404).send()
+        }
+        res.send(tasks)
+    }).catch((err)=>{
+        res.status(500).send()
+    })
+})
+
 
 
 app.listen(port,  () => {
