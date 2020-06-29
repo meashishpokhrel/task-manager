@@ -105,6 +105,27 @@ app.get("/tasks/:id", async(req,res) => {
     }
 })
 
+app.patch("/tasks/:id", async(req,res) =>{
+    const _id =req.params.id
+    const update = Object.keys(req.body)
+    const canUpdate = ["description", "completed"]
+    const isValidator = update.every((update)=> canUpdate.includes(update))
+
+    if (!isValidator){
+        res.status(400).send({Err: "Invalid Updates!!!"})
+    }
+    try{
+        const tasks = await task.findByIdAndUpdate(_id, req.body, {new: true, runValidators:true})
+        if (!tasks){
+            res.status(400).send()
+        }
+        res.send(tasks)
+    }
+    catch(err){
+        res.status(400).send(err)
+    }
+})
+
 
 
 app.listen(port,  () => {
