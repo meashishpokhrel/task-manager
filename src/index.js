@@ -7,66 +7,82 @@ const app = express()
 const port = process.env.port || 3000
 app.use (express.json())
 
-app.post("/users", (req,res) => {
+app.post("/users", async (req,res) => {
     const user = new User(req.body)
-    
-    user.save().then((user) => {
-        res.status(201).send(user)
-    }).catch((err) => {
+    try{
+        await user.save()
+        res.status(201).send(user) 
+    }
+    catch(err){
         res.status(400).send(err)
-    })
+    }
 })
 
-app.get("/users", (req,res) => {
-    User.find({}).then((users) =>{
+app.get("/users", async (req,res) => {
+
+    try{
+        const users =await User.find({})
         res.send(users)
-    }).catch((err)=>{
+    }
+    catch(err){
         res.status(500).send()
-    })
+    }
 })
 
-app.get("/users/:id", (req,res) => {
+app.get("/users/:id", async (req,res) => {
     const _id=req.params.id
-    User.findById({_id}).then((users) =>{
+
+    try{
+        const users = await User.findById({_id})
         if(!users){
             res.status(404).send()
         }
         res.send(users)
-    }).catch((err) => {
+    }
+    catch(err){
         res.status(500).send()
-    })
+    }
 })
 
 
-app.post("/tasks", (req,res) =>{
+app.post("/tasks", async (req,res) =>{
     const Task = new task (req.body)
 
-    Task.save().then ((Task) =>{
-        res.status(201).send(Task)
-    }).catch((err) =>{
+    try{
+        await Task.save()
+        res.status(201).send(Task) 
+    }
+    catch(err){
         res.status(400).send(err)
-    })
+    }
+    
 })
 
-app.get("/tasks", (req,res) => {
-    task.find({}).then((tasks) =>{
-        res.send(tasks)
-    }).catch((err)=>{
-        res.status(500).send()
-    })
+app.get("/tasks", async(req,res) => {
+
+    try{
+        const tasks = await task.find({})
+        res.send(tasks) 
+    }
+    catch(err){
+        res.status(500).send(err)
+    }
 })
 
 
-app.get("/tasks/:id", (req,res) => {
+app.get("/tasks/:id", async(req,res) => {
     const _id = req.params.id
-    task.findById(_id).then((tasks)=>{
+
+    try{
+        const tasks = await task.findById(_id)
         if (!tasks){
             res.status(404).send()
         }
-        res.send(tasks)
-    }).catch((err)=>{
-        res.status(500).send()
-    })
+        res.send(tasks) 
+    }
+    catch(err){
+        res.status(500).send(err)
+    }
 })
 
 
