@@ -14,7 +14,7 @@ app.post("/users", async (req,res) => {
         res.status(201).send(user) 
     }
     catch(err){
-        res.status(400).send(err)
+        res.status(400).send()
     }
 })
 
@@ -35,7 +35,7 @@ app.get("/users/:id", async (req,res) => {
     try{
         const users = await User.findById({_id})
         if(!users){
-            res.status(404).send()
+            return res.status(404).send()
         }
         res.send(users)
     }
@@ -56,13 +56,29 @@ app.patch("/users/:id", async(req,res)=>{
     try{
         const user = await User.findByIdAndUpdate(_id, req.body, {new: true, runValidators: true})
         if(!user){
-            res.status(400).send()
+           return res.status(400).send()
         } 
         res.send(user)
     }
     catch(err){
         res.status(500).send()
     }
+})
+
+app.delete("/users/:id", async (req,res) =>{
+    
+    try{
+        const user = await User.findByIdAndDelete(req.params.id)
+        if (!user){
+            return res.status(400).send()
+        }
+        res.send(user)
+    }
+    catch(err){
+        res.status(400).send()
+    }
+
+
 })
 
 app.post("/tasks", async (req,res) =>{
@@ -73,7 +89,7 @@ app.post("/tasks", async (req,res) =>{
         res.status(201).send(Task) 
     }
     catch(err){
-        res.status(400).send(err)
+        res.status(400).send()
     }
     
 })
@@ -85,7 +101,7 @@ app.get("/tasks", async(req,res) => {
         res.send(tasks) 
     }
     catch(err){
-        res.status(500).send(err)
+        res.status(500).send()
     }
 })
 
@@ -96,12 +112,12 @@ app.get("/tasks/:id", async(req,res) => {
     try{
         const tasks = await task.findById(_id)
         if (!tasks){
-            res.status(404).send()
+            return res.status(404).send()
         }
         res.send(tasks) 
     }
     catch(err){
-        res.status(500).send(err)
+        res.status(500).send()
     }
 })
 
@@ -117,15 +133,28 @@ app.patch("/tasks/:id", async(req,res) =>{
     try{
         const tasks = await task.findByIdAndUpdate(_id, req.body, {new: true, runValidators:true})
         if (!tasks){
-            res.status(400).send()
+            return res.status(400).send()
         }
         res.send(tasks)
     }
     catch(err){
-        res.status(400).send(err)
+        res.status(400).send()
     }
 })
 
+app.delete("/tasks/:id", async (req,res) =>{
+    const _id = req.params.id
+    try{
+        const tasks = await task.findByIdAndDelete(_id)
+        if (!tasks){
+            return res.status(400).send()
+        }
+        res.send(tasks)
+    }
+    catch(err){
+        res.status(404).send()
+    }
+})
 
 
 app.listen(port,  () => {
