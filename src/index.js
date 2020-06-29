@@ -44,6 +44,26 @@ app.get("/users/:id", async (req,res) => {
     }
 })
 
+app.patch("/users/:id", async(req,res)=>{
+    const _id = req.params.id
+    const updates = Object.keys(req.body)       //Converts into a array
+    const canUpdate = ["name", "age", "email", "password"]
+    const isValidator = updates.every((update)=> canUpdate.includes(update))
+
+    if(!isValidator){
+        return res.status(400).send({Err: "Invalid Updates!!!"})
+    }
+    try{
+        const user = await User.findByIdAndUpdate(_id, req.body, {new: true, runValidators: true})
+        if(!user){
+            res.status(400).send()
+        } 
+        res.send(user)
+    }
+    catch(err){
+        res.status(500).send()
+    }
+})
 
 app.post("/tasks", async (req,res) =>{
     const Task = new task (req.body)
