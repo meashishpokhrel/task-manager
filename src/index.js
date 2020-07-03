@@ -10,19 +10,19 @@ app.use (express.json())
 app.use(userRouter)
 app.use(taskRouter)
 
-const myfunction = async () => {
-    const password = "test1234"
-    const hashedPassword = await bcrypt.hash(password,8)
-    console.log(password);
-    console.log(hashedPassword)
+// const myfunction = async () => {
+//     const password = "test1234"
+//     const hashedPassword = await bcrypt.hash(password,8)
+//     console.log(password);
+//     console.log(hashedPassword)
 
-    const isValidator = await bcrypt.compare("test12345", hashedPassword)
-    console.log(isValidator)
+//     const isValidator = await bcrypt.compare("test12345", hashedPassword)
+//     console.log(isValidator)
     
     
-}
+// }
 
-myfunction()
+// myfunction()
 
 
 app.listen(port,  () => {
