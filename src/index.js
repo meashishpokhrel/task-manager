@@ -17,9 +17,7 @@ const myfunction = async () => {
 
     const data = jwt.verify(token, "tryingjwt")
     console.log(data);
-    
-    
-    
+      
     
 }
 
