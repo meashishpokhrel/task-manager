@@ -16,7 +16,7 @@ app.use(taskRouter)
 //     console.log(password);
 //     console.log(hashedPassword)
 
-//     const isValidator = await bcrypt.compare("test12345", hashedPassword)
+//     const isValidator = await bcrypt.compare("test1234", hashedPassword)
 //     console.log(isValidator)
     
     
