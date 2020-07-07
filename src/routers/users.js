@@ -1,16 +1,18 @@
 const express = require ("express")
-const router = express.Router()
 const User = require("../models/users")
+const router = new express.Router()
+
 
 router.post("/users", async (req,res) => {
     const user = new User(req.body)
+    
     try{
         await user.save()
         const token = await user.generateToken()
         res.status(201).send({user, token}) 
     }
     catch(err){
-        res.status(400).send()
+        res.status(400).send(err)
     }
 })
 
@@ -18,12 +20,12 @@ router.post("/users/login", async (req,res) => {
     try{
         const user = await User.findByCredentials(req.body.email, req.body.password)
         const token = await user.generateToken()
-        res.send({user, token})
+        res.status(201).send({user, token})
     }
     catch(err){
-       res.status(400).send()
-       
-        
+    //    res.status(400).send()
+    res.status(400).send({Err: "Unable to login!"})
+      
     }
 })
 
@@ -42,11 +44,11 @@ router.get("/users/:id", async (req,res) => {
     const _id=req.params.id
 
     try{
-        const users = await User.findById({_id})
-        if(!users){
+        const user = await User.findById({_id})
+        if(!user){
             return res.status(404).send()
         }
-        res.send(users)
+        res.send(user)
     }
     catch(err){
         res.status(500).send()
@@ -56,7 +58,7 @@ router.get("/users/:id", async (req,res) => {
 router.patch("/users/:id", async(req,res)=>{
     const _id = req.params.id
     const updates = Object.keys(req.body)       //Converts into a array
-    const canUpdate = ["name", "age", "email", "password"]
+    const canUpdate = ["name", "email", "password", "age"]
     const isValidator = updates.every((update)=> canUpdate.includes(update))
 
     if(!isValidator){
@@ -94,3 +96,4 @@ router.delete("/users/:id", async (req,res) =>{
 })
 
 module.exports = router
+

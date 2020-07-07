@@ -1,8 +1,8 @@
 const express = require ("express")
 require("./db/mongoose")
 const app = express()
-const bcrypt = require("bcryptjs")
-const jwt = require("jsonwebtokens")
+
+const jwt = require("jsonwebtoken")
 const userRouter = require("./routers/tasks")
 const taskRouter = require ("./routers/users")
 
