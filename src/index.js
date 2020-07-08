@@ -11,17 +11,17 @@ app.use (express.json())
 app.use(userRouter)
 app.use(taskRouter)
 
-const myfunction = async () => {
-    const token = jwt.sign({_id:"abc123"},"tryingjwt",{expiresIn: "7 days"})
-    console.log(token);
+// const myfunction = async () => {
+//     const token = jwt.sign({_id:"abc123"},"tryingjwt",{expiresIn: "7 days"})
+//     console.log(token);
 
-    const data = jwt.verify(token, "tryingjwt")
-    console.log(data);
+//     const data = jwt.verify(token, "tryingjwt")
+//     console.log(data);
       
     
-}
+// }
 
-myfunction()
+// myfunction()
 
 
 app.listen(port,  () => {
