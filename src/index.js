@@ -28,3 +28,8 @@ app.listen(port,  () => {
     console.log("Server Started on " + port)
     
 })
+
+//Nodemon code for Token Bearer automation
+// if (pm.response.code === 201){
+//     pm.environment.set("authoToken", pm.response.json().token)
+// }
