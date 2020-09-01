@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    HBS VIEWS
+    <form method="POST" action="/users/">
+        <input type="text" name="name" placeholder="name">
+        <input type="email" name="email" placeholder="email">
+        <input type="password" name="password" placeholder="password">
+        <input type="text" name="age" placeholder="age">
+        <button type="submit">Register</button>
+
+    </form>
+    LOGIN
+    <form method="POST" action="/users/login">
+        
+        <input type="email" name="email" placeholder="email">
+        <input type="password" name="password" placeholder="password">
+        <button type="submit">Register</button>
+    </form>
+    <form method="GET" action="/users/me">
+    <button type="submit">Show PRofile</button>
+    </form>
+</body>
+</html>

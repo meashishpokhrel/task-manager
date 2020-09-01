@@ -42,7 +42,8 @@ const userSchema = new mongoose.Schema({
                 throw new Error("Age cannot be Negative Number!")
             }
         }
-    },
+    }
+    ,
     tokens: [{
         token:{
             type: String,
