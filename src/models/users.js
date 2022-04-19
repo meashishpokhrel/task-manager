@@ -2,7 +2,6 @@ const mongoose = require ("mongoose")
 const validator = require("validator")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
-// const { delete } = require("../routers/tasks")
 
 const userSchema = new mongoose.Schema({
     name:{
@@ -82,10 +81,6 @@ userSchema.statics.findByCredentials = async (email, password) => {
     if (!user) {
         throw new Error('Unable to login')
     }
-    // console.log(user.password);
-    // console.log(password);
-    // text = await bcrypt.hash("password", 8)
-    // console.log(text);
     
     
     const isMatch = await bcrypt.compare(password, user.password)
